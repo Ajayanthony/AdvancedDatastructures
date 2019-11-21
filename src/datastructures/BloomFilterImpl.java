@@ -28,7 +28,7 @@ public class BloomFilterImpl implements BloomFilter {
 
     @Override
     public void add(int item) {
-        IntStream.range(1, this.hashCount)
+        IntStream.range(1, this.hashCount + 1)
                 .map(seed -> addItemForSeed(item, seed))
                 .forEach(hashValue -> this.bitArray[hashValue % this.size] = true);
     }
@@ -41,7 +41,7 @@ public class BloomFilterImpl implements BloomFilter {
 
     @Override
     public boolean contains(int item) {
-        return IntStream.range(1, this.hashCount)
+        return IntStream.range(1, this.hashCount + 1)
                 .map(seed -> addItemForSeed(item, seed))
                 .allMatch(hashValue -> this.bitArray[hashValue % this.size]);
     }
